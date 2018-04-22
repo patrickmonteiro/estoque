@@ -2,7 +2,7 @@
 		<div class="row justify-content-md-center pt-4">
 
 			<div class="col col-lg-8">
-				<a class="btn btn-primary mb-2" style="float: right" href="<?=site_url('gerenciar/formulario')?>" ><i class="fa fa-plus"></i> 
+				<a class="btn btn-primary mb-2" style="float: right" href="<?=site_url('formulario')?>" ><i class="fa fa-plus"></i> 
 				Cadastrar </a>
 
 				<table class="table table-hover table-bordered">
