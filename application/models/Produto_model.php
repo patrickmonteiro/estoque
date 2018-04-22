@@ -9,14 +9,11 @@ class Produto_model extends CI_Model {
 		$this->table = 'tb_produto';
 	}
 
-	public function getAll()
+	public function listaProdutos()
 	{
-		$result = $this->db->get('tb_produto')->result();
-
-		if($result)
-		{
-			return $result;
-		}
+		$result = $this->db->get('tb_produto')->result_array();
+		return $result;
+	
 	}
 
 

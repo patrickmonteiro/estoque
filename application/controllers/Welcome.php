@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->load->template('login/login');
 	}
 
 	public function login()
