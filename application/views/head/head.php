@@ -18,7 +18,7 @@
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	   <div class="collapse navbar-collapse" id="navbarNav">	   	
-	    <?php if($this->session->userdata('logado')) { ?>
+	    <?php if($this->session->userdata("usuario_logado")) { ?>
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
 	        <a class="nav-link" href="#">Dashboard</a>
@@ -30,7 +30,7 @@
 	    <ul class="navbar-nav my-2 my-lg-0">
 	    	<li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <?=$this->session->userdata('nome')?>
+		          <?=$this->session->usuario_logado['nome']?>
 		        </a>
 		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		          <a class="dropdown-item" href="#">Meus Dados</a>
@@ -43,3 +43,15 @@
 	    <?php } ?>
 	  </div> 
 	</nav>
+
+<?php if($this->session->flashdata("success")) { ?>
+	<div class="alert alert-success text-center" role="alert">
+		<strong> <?= $this->session->flashdata("success") ?> </strong>
+	</div>
+<?php } ?>
+
+<?php if($this->session->flashdata("danger")) { ?>
+	<div class="alert alert-danger text-center" role="alert">
+		<strong> <?= $this->session->flashdata("danger") ?> </strong>
+	</div>
+<?php } ?>

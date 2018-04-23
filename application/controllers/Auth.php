@@ -15,33 +15,31 @@ class Auth extends CI_Controller {
 		redirect('welcome/index');
 	}
 
-	public function loginSubmit()
-	{
+	public function loginSubmit() {
 		$dados = array('login'=> trim($this->input->post('login')),
 					   'senha'=> sha1($this->input->post('senha')));
 
-		if($dados)
-		{
+		if($dados) {
 			$usuario = $this->usuario_model->login($dados);
 			
-			if($usuario)
-			{
-				$this->session->set_userdata(array('nome'=> $usuario->nome,
+			if($usuario) {
+				$this->session->set_userdata("usuario_logado", array('nome'=> $usuario->nome,
 												   'login'=> $usuario->login,
 												   'ativo'=> $usuario->ativo,
 												   'logado'=> 1,
 													));
 				redirect('gerenciar');
+			} else {
+
+				$this->session->flashdata("Usuário ou Senha incorreto!");
+				redirect('acesso');
 			}
 		}
 	}
 
 	public function logout()
 	{
-		$this->session->unset_userdata('nome');
-		$this->session->unset_userdata('login');
-		$this->session->unset_userdata('ativo');
-		$this->session->unset_userdata('logado');
+		$this->session->unset_userdata("usuario_logado");
 		redirect('acesso');
 	}
 }

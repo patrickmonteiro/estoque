@@ -9,6 +9,7 @@ class Produto_model extends CI_Model {
 		$this->table = 'tb_produto';
 	}
 
+
 	public function listaProdutos()
 	{
 		$result = $this->db->get('tb_produto')->result_array();
@@ -41,14 +42,13 @@ class Produto_model extends CI_Model {
 		return true;
 	}
 
-	public function getProdutoEstoqueById($id)
-	{
-		$result = $this->db->where('id', $id)->get('tb_produto')->row_array();
+	public function buscaId($id) {
+				  $this->db->where('id', $id);
+		$result = $this->db->get('tb_produto')->row_array();
 		return $result;
 	}
 
-	public function add($data)
-	{
+	public function salva($data) {
 		try {
 			$this->db->insert('tb_produto', $data);
 		} catch (Exception $e) {
@@ -58,23 +58,29 @@ class Produto_model extends CI_Model {
 		return true;
 	}
 
-	public function getSelectCategoria($id_categoria = null)
-	{
-		$html = '<select name="id_categoria" class="form-control">
-				<option value="">Categoria...</option>
-					';
+	public function atualiza($produto) {
+		try {
+			$this->db->where('id', $produto['id'] );
+			$this->db->update('tb_produto', $produto);
+		} catch (Exception $e) {
+			$this->_msg_erro = "Erro." . $e->getMessage();
+			return false;
+		}
+		return true;
+	}
 
-		$categorias = $this->db->get('tb_categoria')->result();
+	public function listaCategorias() {
 
-		if($categorias)
-		{
-			foreach ($categorias as $oCategoria) {
-				$select = ($oCategoria->id = $id_categoria)? 'selected': '';
-				$html .= "<option value='{$oCategoria->id}' {$select}>{$oCategoria->nome}</option>";
-			}
+		return $this->db->get('tb_categoria')->result_array();
+	}
 
-			$html .= "</select>";
-			return $html;
+	public function deleta($idProduto) {
+		
+			$this->db->where('id', $idProduto);
+		if( !$this->db->delete('tb_produto') ) {
+			return false;
+		}else {
+			return $this->db->affected_rows();
 		}
 	}
 }
