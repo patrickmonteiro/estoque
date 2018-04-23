@@ -7,6 +7,7 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->model('Usuario_model','usuario_model',true);
 	}
 	
 	public function index()
@@ -16,12 +17,13 @@ class Auth extends CI_Controller {
 
 	public function loginSubmit()
 	{
-		$dados = array('login'=> $this->input->post('login'),
+		$dados = array('login'=> trim($this->input->post('login')),
 					   'senha'=> sha1($this->input->post('senha')));
 
 		if($dados)
 		{
 			$usuario = $this->usuario_model->login($dados);
+			
 			if($usuario)
 			{
 				$this->session->set_userdata(array('nome'=> $usuario->nome,
@@ -32,5 +34,14 @@ class Auth extends CI_Controller {
 				redirect('gerenciar');
 			}
 		}
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('nome');
+		$this->session->unset_userdata('login');
+		$this->session->unset_userdata('ativo');
+		$this->session->unset_userdata('logado');
+		redirect('acesso');
 	}
 }

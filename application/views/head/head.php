@@ -17,8 +17,9 @@
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
-	  <!-- <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
+	   <div class="collapse navbar-collapse" id="navbarNav">	   	
+	    <?php if($this->session->userdata('logado')) { ?>
+	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
 	        <a class="nav-link" href="#">Dashboard</a>
 	      </li>
@@ -26,5 +27,19 @@
 	        <a class="nav-link" href="#">Estoque</a>
 	      </li>
 	    </ul>
-	  </div> -->
+	    <ul class="navbar-nav my-2 my-lg-0">
+	    	<li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <?=$this->session->userdata('nome')?>
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="#">Meus Dados</a>
+		          <a class="dropdown-item" href="#">Another action</a>
+		          <div class="dropdown-divider"></div>
+		          <a class="dropdown-item" href="<?=site_url('logout')?>">Sair</a>
+		        </div>
+		     </li>
+	    </ul>
+	    <?php } ?>
+	  </div> 
 	</nav>

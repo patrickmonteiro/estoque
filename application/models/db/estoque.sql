@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Abr-2018 às 13:07
+-- Generation Time: 23-Abr-2018 às 03:03
 -- Versão do servidor: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -54,10 +54,21 @@ INSERT INTO `tb_categoria` (`id`, `nome`) VALUES
 CREATE TABLE `tb_produto` (
   `id` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL,
-  `nome` varchar(50) DEFAULT NULL,
+  `produto` varchar(100) DEFAULT NULL,
   `quantidade` int(11) DEFAULT NULL,
-  `vl_produto` double DEFAULT NULL
+  `valor` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_produto`
+--
+
+INSERT INTO `tb_produto` (`id`, `id_categoria`, `produto`, `quantidade`, `valor`) VALUES
+(1, 7, 'Caneta', 20, 1),
+(2, 7, 'Post it', 30, 1),
+(3, 8, 'Mouse', 15, 25),
+(4, 7, 'Borracha', 15, 1.5),
+(5, 6, 'Lápis', 36, 1.75);
 
 -- --------------------------------------------------------
 
@@ -68,11 +79,18 @@ CREATE TABLE `tb_produto` (
 CREATE TABLE `tb_usuario` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) DEFAULT NULL,
-  `login` varchar(50) DEFAULT NULL,
+  `login` varchar(100) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
   `ativo` tinyint(4) DEFAULT NULL,
   `excluido` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_usuario`
+--
+
+INSERT INTO `tb_usuario` (`id`, `nome`, `login`, `senha`, `ativo`, `excluido`) VALUES
+(1, 'Administrador', 'admin@estoque.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 0);
 
 --
 -- Indexes for dumped tables
@@ -105,12 +123,12 @@ ALTER TABLE `tb_usuario`
 -- AUTO_INCREMENT for table `tb_produto`
 --
 ALTER TABLE `tb_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_usuario`
 --
 ALTER TABLE `tb_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --

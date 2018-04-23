@@ -18,12 +18,12 @@
 				  <tbody>
 				  	<?php foreach($produtos as $produto) {?>
 					    <tr>
-					    	<td><?= $produto['nome']?></td>
+					    	<td><?= $produto['produto']?></td>
 					      <td><?= $produto['quantidade']?></td>
-					      <td><?= $produto['vl_produto']?></td>
+					      <td><?= str_replace('.',',',$produto['valor'])?></td>
 					      <td width="30%">
 					      	<button class="btn btn-danger" style="float:right"> <i class="fa fa-trash"></i> Excluir</button>
-					      	<button class="btn btn-primary" style="float:right"> <i class="fa fa-cog"></i> Editar</button>
+					      	<a href="<?=site_url('editar')?>/<?=$produto['id']?>"><button class="btn btn-primary" style="float:right"> <i class="fa fa-cog"></i> Editar</button></a>
 					      </td>
 					    </tr>
 					  <?php } ?> 

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Usuario_model extends MY_Model {
+class Usuario_model extends CI_Model {
 	public $_msg_erro;
 	public $_msg;
 
@@ -29,14 +29,23 @@ class Usuario_model extends MY_Model {
 	public function getUserById($id)
 	{
 		try {
-			if($id == 0) $result = $this->db->get('usuario')->result_array();
+			if($id == 0) $result = $this->db->get('tb_usuario')->result_array();
 			else
-				$result = $this->db->where("id = {$id}")->get('usuario')->result_array();
+				$result = $this->db->where("id = {$id}")->get('tb_usuario')->result_array();
 			
 		} catch (Exception $e) {
 			$this->_msg_erro = "Erro: Não foi possível encontrar o Usuário. <br> Error-Message:" . $e->getMessage();
 			return false;
 		}
 		return $result;
+	}
+
+	public function login($dados)
+	{
+		$result = $this->db->where($dados)->get('tb_usuario')->row();
+		if($result)
+			return $result;
+		else
+			return false;
 	}
 }

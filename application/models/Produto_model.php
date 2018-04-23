@@ -19,37 +19,38 @@ class Produto_model extends CI_Model {
 
 	public function validateAdd(&$data)
 	{
-		if($data['nome'])
+		if($data['produto'] == "")
 		{
 			$this->_msg_erro = "Informe o Nome do Produto!";
 			return false;
 		}
-		if($data['quantidade'])
+		if($data['quantidade'] == "")
 		{
 			$this->_msg_erro = "Informe a Quantidade!";
 			return false;
 		}
+		if($data['valor'] == "")
+		{
+			$this->_msg_erro = "Informe o Valor do Produto!";
+			return false;
+		} else {
+			$data['valor'] = str_replace(',','.',$data['valor']);	
+		}
+
+		unset($data['cadastrar']);		
 		return true;
 	}
 
 	public function getProdutoEstoqueById($id)
 	{
-		try {
-			if($id == 0) $result = $this->db->where("id = {$id}")->get('produto')->result();
-			else
-				$result = $this->db->where("id = {$id}")->get('usuario')->result_array();
-			
-		} catch (Exception $e) {
-			$this->_msg_erro = "Erro: Não foi possível encontrar o Usuário. <br> Error-Message:" . $e->getMessage();
-			return false;
-		}
+		$result = $this->db->where('id', $id)->get('tb_produto')->row_array();
 		return $result;
 	}
 
 	public function add($data)
 	{
 		try {
-			$this->db->insert('produto', $data);
+			$this->db->insert('tb_produto', $data);
 		} catch (Exception $e) {
 			$this->_msg_erro = "Erro." . $e->getMessage();
 			return false;
@@ -57,7 +58,7 @@ class Produto_model extends CI_Model {
 		return true;
 	}
 
-	public function getSelectCategoria()
+	public function getSelectCategoria($id_categoria = null)
 	{
 		$html = '<select name="id_categoria" class="form-control">
 				<option value="">Categoria...</option>
@@ -68,7 +69,8 @@ class Produto_model extends CI_Model {
 		if($categorias)
 		{
 			foreach ($categorias as $oCategoria) {
-				$html .= "<option value='{$oCategoria->id}'>{$oCategoria->nome}</option>";
+				$select = ($oCategoria->id = $id_categoria)? 'selected': '';
+				$html .= "<option value='{$oCategoria->id}' {$select}>{$oCategoria->nome}</option>";
 			}
 
 			$html .= "</select>";
